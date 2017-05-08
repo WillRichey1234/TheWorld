@@ -75,5 +75,23 @@ namespace TheWorld
             else
                 throw new WorldException(String.Format("There is nothing {0} of {1}", relation, this.Name), this);
         }
+
+        /// <summary>
+        /// Inspect this area.  Returns string with full description.
+        /// </summary>
+        /// <returns></returns>
+        public String Inspect()
+        {
+            return this.LongDescription;
+        }
+
+        /// <summary>
+        /// Get the quick synopsis of this area.
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString()
+        {
+            return String.Format("{0}{1}____________________{1}{2}", this.Name, Environment.NewLine, this.ShortDescription);
+        }
     }
 }
