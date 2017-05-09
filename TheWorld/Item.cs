@@ -21,7 +21,7 @@ namespace TheWorld
 			set;
 		}
 
-		public int Value
+		public Money Value
 		{
 			get;
 			set;

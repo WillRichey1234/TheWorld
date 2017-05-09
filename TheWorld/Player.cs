@@ -8,17 +8,32 @@ namespace TheWorld
 	/// </summary>
 	public class Player
 	{
+        /// <summary>
+        /// This player's name.
+        /// </summary>
 		public String Name
 		{
 			get;
-			private set;
+			protected set;
 		}
 
+        /// <summary>
+        /// This player's stats
+        /// </summary>
 		public StatChart Stats
 		{
 			get;
 			set;
 		}
+
+        /// <summary>
+        /// How much money does the player have?
+        /// </summary>
+        public Money MoneyPouch
+        {
+            get;
+            protected set;
+        }
 
 		/// <summary>
 		/// The items. In Stacks.  By Name.
