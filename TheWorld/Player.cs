@@ -1,65 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TheWorld
 {
-    /// <summary>
-    /// A player in TheWorld
-    /// </summary>
-    public class Player
-    {
-        /// <summary>
-        /// The player's name
-        /// </summary>
-        public String Name { get; protected set; }
+	/// <summary>
+	/// The Player playing the game!
+	/// </summary>
+	public class Player
+	{
+		public String Name
+		{
+			get;
+			private set;
+		}
 
-        /// <summary>
-        /// What level is the player.
-        /// </summary>
-        public int Level { get; protected set; }
+		public StatChart Stats
+		{
+			get;
+			set;
+		}
 
-        /// <summary>
-        /// Player's wallet
-        /// </summary>
-        public Money MoneyPouch { get; protected set; }
+		/// <summary>
+		/// The items. In Stacks.  By Name.
+		/// </summary>
+		private Dictionary<String, List<Item>> Backpack;
 
-        /// <summary>
-        /// The area that the player is currently in.
-        /// </summary>
-        public Area CurrentArea { get; protected set; }
+		public Player( String name )
+		{
+			Name = name;
+			Backpack = new Dictionary<string, List<Item>> ();
+		}
 
-        /// <summary>
-        /// Create a new Player for the game.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="startArea"></param>
-        public Player(String name, ref Area startArea)
-        {
-            this.Name = name;
-            this.CurrentArea = startArea;
-            this.Level = 1;
-            this.MoneyPouch = new Money();
-        }
-
-        /// <summary>
-        /// Add money to your player.
-        /// </summary>
-        /// <param name="money"></param>
-        public void GetMoney(Money money)
-        {
-            this.MoneyPouch += money;
-        }
-
-        /// <summary>
-        /// Display your character's stats.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return String.Format("{0}: Level {1}{2}{3}", Name, Level, Environment.NewLine, MoneyPouch);
-        }
-    }
+		/// <summary>
+		/// Put the Item in your backpack.
+		/// </summary>
+		/// <param name="item">Item.</param>
+		public void PickUp( Item item )
+		{
+			if (Backpack.ContainsKey (item.Name))
+				Backpack [item.Name].Add (item);
+			else
+				Backpack.Add (item.Name, new List<Item> () { item });
+		}
+	}
 }
+

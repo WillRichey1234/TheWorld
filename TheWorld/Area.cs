@@ -1,97 +1,199 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TheWorld
 {
-    public class Area
-    {
-        /// <summary>
-        /// Areas that are connected to this Area linked by their relationship
-        /// E.g.    "north" -> an area located to the north
-        ///         "down-stairs" -> the room downstairs...
-        /// </summary>
-        protected Dictionary<string, Area> Neighbors { get; set; }
+	/// <summary>
+	/// Area represents a location in The World.
+	/// Areas can be traveled between and are linked to their neighbors.
+	/// Areas can contain objects which can be looked at or even interacted with.
+	/// </summary>
+	public class Area
+	{
+		/// <summary>
+		/// The neighboring areas, indexed by Keyword for travel.
+		/// </summary>
+		protected Dictionary<String, Area> NeighboringAreas;
 
-        /// <summary>
-        /// The name of this Area.
-        /// </summary>
-        public String Name
-        {
-            get; protected set;
-        }
+		/// <summary>
+		/// The items found in this Area, indexed by Unique Name.
+		/// </summary>
+		protected Dictionary<String, Item> Items;
 
-        /// <summary>
-        /// The description of this Area that is printed when the area is INSPECTed
-        /// </summary>
-        public String LongDescription { get; protected set; }
+		/// <summary>
+		/// The creatures found in this Area, indexed by Unique Name.
+		/// </summary>
+		protected Dictionary<String, Creature> Creatures;
 
-        /// <summary>
-        /// The quick description of this Area that is printed when you enter.
-        /// </summary>
-        public String ShortDescription { get; protected set; }
+		public String Name
+		{
+			get;
+			set;
+		}
 
-        /// <summary>
-        /// Initialize an area with no connections to other areas.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="longDescription"></param>
-        /// <param name="shortDescription"></param>
-        public Area(String name, String longDescription, String shortDescription)
-        {
-            this.Name = name;
-            this.LongDescription = longDescription;
-            this.ShortDescription = shortDescription;
-            // set the Neighbors collection to an empty dictionary.
-            this.Neighbors = new Dictionary<string, Area>();
-        }
+		public String Description
+		{
+			get;
+			set;
+		}
 
-        /// <summary>
-        /// Add a neighbor with the given relationship.
-        /// If that relation is already used, throws a WorldException.
-        /// </summary>
-        /// <param name="relation"></param>
-        /// <param name="neighbor"></param>
-        public void AddNeighbor(String relation, Area neighbor)
-        {
-            if (this.Neighbors.ContainsKey(relation))
-                throw new WorldException("Already have a neighbor at that location.", this);
+		/// <summary>
+		/// Initializes a new instance of the <see cref="TheWorld.Area"/> class.
+		/// </summary>
+		public Area()
+		{
+			NeighboringAreas = new Dictionary<string, Area> ();
+			Items = new Dictionary<string, Item> ();
+			Creatures = new Dictionary<string, Creature> ();
+		}
 
-            this.Neighbors.Add(relation, neighbor);
-        }
+		/// <summary>
+		/// Looks at thing.
+		/// </summary>
+		/// <returns>The Description of the thing you are looking at.</returns>
+		/// <param name="thing">Thing.</param>
+		public String LookAt( String thing )
+		{
+			if (Items.ContainsKey (thing))
+			{
+				return String.Format ("{0} - {1}", Items [thing].Name, Items [thing].Description);
+			} else if (Creatures.ContainsKey (thing))
+			{
+				return String.Format ("{0} - {1}", Creatures [thing].Name, Creatures [thing].Description);
+			} else if (NeighboringAreas.ContainsKey (thing))
+			{
+				return NeighboringAreas [thing].Name;
+			}
+				
+			throw new ArgumentException("I don't see anything like that...");
+		}
 
-        /// <summary>
-        /// Get the neighbor associated with the given relation.
-        /// if no such relation is defined, throws a WorldException
-        /// </summary>
-        /// <param name="relation"></param>
-        /// <returns></returns>
-        public Area GetNeighbor(String relation)
-        {
-            if (this.Neighbors.ContainsKey(relation))
-                return this.Neighbors[relation];
-            else
-                throw new WorldException(String.Format("There is nothing {0} of {1}", relation, this.Name), this);
-        }
+		/// <summary>
+		/// Looks around.
+		/// </summary>
+		/// <returns>The around.</returns>
+		public String LookAround()
+		{
+			String longDescription = this.ToString () + Environment.NewLine;
+			foreach (String key in Items.Keys)
+			{
+				longDescription += String.Format ("There is a [{0}]. {1}", key, Environment.NewLine);
+			}
+			foreach (String key in Creatures.Keys)
+			{
+				longDescription += String.Format ("You see a [{0}]. {1}", key, Environment.NewLine);
+			}
 
-        /// <summary>
-        /// Inspect this area.  Returns string with full description.
-        /// </summary>
-        /// <returns></returns>
-        public String Inspect()
-        {
-            return this.LongDescription;
-        }
+			foreach (String keyword in NeighboringAreas.Keys)
+			{
+				longDescription += String.Format ("If you go [{0}] there is a {1}.{2}",
+				                                  keyword,
+				                                  NeighboringAreas [keyword].Name,
+				                                  Environment.NewLine);
+			}
+			return longDescription;
+		}
 
-        /// <summary>
-        /// Get the quick synopsis of this area.
-        /// </summary>
-        /// <returns></returns>
-        public override String ToString()
-        {
-            return String.Format("{0}{1}____________________{1}{2}", this.Name, Environment.NewLine, this.ShortDescription);
-        }
-    }
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override String ToString()
+		{
+			return String.Format ("{0}{1}{2}", Name, Environment.NewLine, Description);
+		}
+
+		/// <summary>
+		/// Adds the neighbor.
+		/// </summary>
+		/// <param name="neighbor">Neighbor.</param>
+		/// <param name="keyword">Keyword. Must be unique in this area.</param>
+		/// <exception cref="ArgumentException">Throws an ArgumentException if the keyword is already used in this area.</exception>
+		public void AddNeighbor( Area neighbor, String keyword )
+		{
+			if (NeighboringAreas.ContainsKey (keyword))
+				throw new ArgumentException ("That keyword is already taken");
+			
+			NeighboringAreas.Add (keyword, neighbor);
+		}
+
+		/// <summary>
+		/// Gets the neighbor with the given keyword.
+		/// </summary>
+		/// <returns>The neighbor.</returns>
+		/// <param name="keyword">Keyword.</param>
+		/// <exception cref="ArgumentException">If there is no neighbor with the given keyword.</exception>
+		public Area GetNeighbor( String keyword )
+		{
+			if (!NeighboringAreas.ContainsKey (keyword))
+				throw new ArgumentException ("I can't go that way...");
+
+			return NeighboringAreas [keyword];
+		}
+
+		/// <summary>
+		/// Adds the item.
+		/// </summary>
+		/// <param name="item">Item.</param>
+		/// <param name="uid">Unique Name for the item.  Must be unique in this area.</param>
+		/// <exception cref="ArgumentException">Throws an ArgumentException if the uid is already used in this area.</exception>
+		public void AddItem( Item item, String uid )
+		{
+			if (Items.ContainsKey (uid))
+				throw new ArgumentException ("There is already an Item in this area with that Unique Name.");
+			
+			Items.Add (uid, item);
+		}
+
+		/// <summary>
+		/// Gets the item.
+		/// </summary>
+		/// <returns>The item.</returns>
+		/// <param name="uid">Uid.</param>
+		public Item GetItem( String uid )
+		{
+			if (!Items.ContainsKey (uid))
+				throw new ArgumentException ("I don't see anything like that...");
+
+			return Items [uid];
+		}
+
+		/// <summary>
+		/// Adds the creature.
+		/// </summary>
+		/// <param name="creature">Creature.</param>
+		/// <param name="uid">Unique name for the creature.  Must be unique in this area.</param>
+		/// <exception cref="ArgumentException">Throws an ArgumentException if the uid is already used in this area.</exception>
+		public void AddCreature( Creature creature, String uid )
+		{
+			if (Creatures.ContainsKey (uid))
+				throw new ArgumentException ("There is already a Creature with that unique name in this area.");
+
+			Creatures.Add (uid, creature);
+		}
+
+		/// <summary>
+		/// Gets the creature.
+		/// </summary>
+		/// <returns>The creature.</returns>
+		/// <param name="uid">Uid.</param>
+		public Creature GetCreature( String uid )
+		{
+			if (!Creatures.ContainsKey (uid))
+				throw new ArgumentException ("I don't see that around here...");
+
+			return Creatures [uid];
+		}
+
+		/// <summary>
+		/// Determines whether this instance can go the specified direction.
+		/// </summary>
+		/// <returns><c>true</c> if this instance can go the specified direction; otherwise, <c>false</c>.</returns>
+		/// <param name="direction">Direction.</param>
+		public bool CanGo( String direction )
+		{
+			return NeighboringAreas.ContainsKey (direction);
+		}
+	}
 }
+
