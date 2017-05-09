@@ -9,26 +9,31 @@ namespace TheWorld
 	/// </summary>
 	public class Item
 	{
+        /// <summary>
+        /// Name of the Item
+        /// </summary>
 		public String Name
 		{
 			get;
 			set;
 		}
 
+        /// <summary>
+        /// A description of the item.
+        /// </summary>
 		public String Description
 		{
 			get;
 			set;
 		}
 
+        /// <summary>
+        /// How much is the Item worth?
+        /// </summary>
 		public Money Value
 		{
 			get;
 			set;
-		}
-
-		public Item()
-		{
 		}
 	}
 }

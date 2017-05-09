@@ -50,10 +50,6 @@ namespace TheWorld
 			set;
 		}
 
-		public StatChart()
-		{
-		}
-
 		/// <summary>
 		/// Calculates the attack against an opponent.
 		/// </summary>

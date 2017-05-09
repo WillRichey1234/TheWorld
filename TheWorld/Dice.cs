@@ -2,6 +2,9 @@
 
 namespace TheWorld
 {
+    /// <summary>
+    /// Represents a Dice for a DnD style game!
+    /// </summary>
 	public static class Dice
 	{
 		/// <summary>

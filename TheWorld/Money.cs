@@ -6,15 +6,36 @@ using System.Threading.Tasks;
 
 namespace TheWorld
 {
+    /// <summary>
+    /// Represents a money value in TheWorld
+    /// </summary>
     public class Money
     {
+        /// <summary>
+        /// 100G = 1P
+        /// </summary>
         public uint Platinum { get; set; }
+        /// <summary>
+        /// 100S = 1G
+        /// </summary>
         public uint Gold { get; set; }
+        /// <summary>
+        /// 100C = 1S
+        /// </summary>
         public uint Silver { get; set; }
+        /// <summary>
+        /// the lowest denomination of coinage.
+        /// </summary>
         public uint Copper { get; set; }
 
+        /// <summary>
+        /// returns a string representation of this amount of money.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
+            this.NormalizeCoinage();
+
             String output = "";
             bool addSpace = false;
 

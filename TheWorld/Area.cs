@@ -25,12 +25,18 @@ namespace TheWorld
 		/// </summary>
 		protected Dictionary<String, Creature> Creatures;
 
+        /// <summary>
+        /// Name of this Area.
+        /// </summary>
 		public String Name
 		{
 			get;
 			set;
 		}
 
+        /// <summary>
+        /// Description of this Area.
+        /// </summary>
 		public String Description
 		{
 			get;
@@ -65,7 +71,7 @@ namespace TheWorld
 				return NeighboringAreas [thing].Name;
 			}
 				
-			throw new ArgumentException("I don't see anything like that...");
+			throw new WorldException("I don't see anything like that...");
 		}
 
 		/// <summary>
@@ -108,11 +114,11 @@ namespace TheWorld
 		/// </summary>
 		/// <param name="neighbor">Neighbor.</param>
 		/// <param name="keyword">Keyword. Must be unique in this area.</param>
-		/// <exception cref="ArgumentException">Throws an ArgumentException if the keyword is already used in this area.</exception>
+		/// <exception cref="WorldException">Throws an WorldException if the keyword is already used in this area.</exception>
 		public void AddNeighbor( Area neighbor, String keyword )
 		{
 			if (NeighboringAreas.ContainsKey (keyword))
-				throw new ArgumentException ("That keyword is already taken");
+				throw new WorldException ("That keyword is already taken");
 			
 			NeighboringAreas.Add (keyword, neighbor);
 		}
@@ -122,11 +128,11 @@ namespace TheWorld
 		/// </summary>
 		/// <returns>The neighbor.</returns>
 		/// <param name="keyword">Keyword.</param>
-		/// <exception cref="ArgumentException">If there is no neighbor with the given keyword.</exception>
+		/// <exception cref="WorldException">If there is no neighbor with the given keyword.</exception>
 		public Area GetNeighbor( String keyword )
 		{
 			if (!NeighboringAreas.ContainsKey (keyword))
-				throw new ArgumentException ("I can't go that way...");
+				throw new WorldException ("I can't go that way...");
 
 			return NeighboringAreas [keyword];
 		}
@@ -136,11 +142,11 @@ namespace TheWorld
 		/// </summary>
 		/// <param name="item">Item.</param>
 		/// <param name="uid">Unique Name for the item.  Must be unique in this area.</param>
-		/// <exception cref="ArgumentException">Throws an ArgumentException if the uid is already used in this area.</exception>
+		/// <exception cref="WorldException">Throws an WorldException if the uid is already used in this area.</exception>
 		public void AddItem( Item item, String uid )
 		{
 			if (Items.ContainsKey (uid))
-				throw new ArgumentException ("There is already an Item in this area with that Unique Name.");
+				throw new WorldException ("There is already an Item in this area with that Unique Name.");
 			
 			Items.Add (uid, item);
 		}
@@ -153,7 +159,7 @@ namespace TheWorld
 		public Item GetItem( String uid )
 		{
 			if (!Items.ContainsKey (uid))
-				throw new ArgumentException ("I don't see anything like that...");
+				throw new WorldException ("I don't see anything like that...");
 
 			return Items [uid];
 		}
@@ -163,11 +169,11 @@ namespace TheWorld
 		/// </summary>
 		/// <param name="creature">Creature.</param>
 		/// <param name="uid">Unique name for the creature.  Must be unique in this area.</param>
-		/// <exception cref="ArgumentException">Throws an ArgumentException if the uid is already used in this area.</exception>
+		/// <exception cref="WorldException">Throws an WorldException if the uid is already used in this area.</exception>
 		public void AddCreature( Creature creature, String uid )
 		{
 			if (Creatures.ContainsKey (uid))
-				throw new ArgumentException ("There is already a Creature with that unique name in this area.");
+				throw new WorldException ("There is already a Creature with that unique name in this area.");
 
 			Creatures.Add (uid, creature);
 		}
@@ -180,7 +186,7 @@ namespace TheWorld
 		public Creature GetCreature( String uid )
 		{
 			if (!Creatures.ContainsKey (uid))
-				throw new ArgumentException ("I don't see that around here...");
+				throw new WorldException ("I don't see that around here...");
 
 			return Creatures [uid];
 		}
