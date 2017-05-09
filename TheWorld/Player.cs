@@ -41,7 +41,25 @@ namespace TheWorld
             this.Name = name;
             this.CurrentArea = startArea;
             this.Level = 1;
+            this.MoneyPouch = new Money();
+        }
 
+        /// <summary>
+        /// Add money to your player.
+        /// </summary>
+        /// <param name="money"></param>
+        public void GetMoney(Money money)
+        {
+            this.MoneyPouch += money;
+        }
+
+        /// <summary>
+        /// Display your character's stats.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return String.Format("{0}: Level {1}{2}{3}", Name, Level, Environment.NewLine, MoneyPouch);
         }
     }
 }
