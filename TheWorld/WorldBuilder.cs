@@ -96,6 +96,7 @@ namespace TheWorld
 
         /// <summary>
         /// Create a generic Worm creature.
+        /// Change stuff...
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
