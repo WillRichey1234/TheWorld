@@ -23,9 +23,9 @@ namespace TheWorld
 			player = new Player (Console.ReadLine ());
 			player.Stats = new StatChart () {
 				Level=1,
-				MaxHPs = 10,
+				MaxHPs = Dice.Roll(Dice.Type.D10, 1),
 				HPs = 10,
-				Atk = 2,
+				Atk = 2,     //add speed. if higher than enemy's, you go first
 				Def = 1
 			};
 
