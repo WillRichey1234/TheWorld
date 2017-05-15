@@ -19,11 +19,12 @@ namespace TheWorld
 
 		public static void Main( string[] args )
 		{
+
 			Console.WriteLine ("What is your name?");
 			player = new Player (Console.ReadLine ());
 			player.Stats = new StatChart () {
 				Level=1,
-				MaxHPs = 10,
+				MaxHPs = Dice.Roll(Dice.Type.D10, 1),
 				HPs = 10,
 				Atk = 2,
 				Def = 1
@@ -87,7 +88,7 @@ namespace TheWorld
 				{
 					Console.WriteLine (currentArea.LookAt (parts [1]));
 				}
-				catch(ArgumentException e)
+				catch(WorldException e)
 				{
 					Console.WriteLine (e.Message);
 				}
@@ -108,7 +109,7 @@ namespace TheWorld
 				{
 					currentArea = currentArea.GetNeighbor(parts[1]);
 				}
-				catch(ArgumentException e)
+				catch(WorldException e)
 				{
 					Console.WriteLine (e.Message);
 				}
