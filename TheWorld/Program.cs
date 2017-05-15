@@ -25,7 +25,7 @@ namespace TheWorld
 				Level=1,
 				MaxHPs = Dice.Roll(Dice.Type.D10, 1),
 				HPs = 10,
-				Atk = 2,     //add speed. if higher than enemy's, you go first
+				Atk = 2,     //add speed. if higher than enemy's, you go first?
 				Def = 1
 			};
 
@@ -70,7 +70,8 @@ namespace TheWorld
 			else if (cmdWord.Equals ("go"))
 			{
 				ProcessGoCommand (parts);
-			}
+                Console.WriteLine("{0}", currentArea);
+            }
 		}
 
 		/// <summary>
