@@ -2,12 +2,12 @@
 
 namespace TheWorld
 {
-	/// <summary>
-	/// World builder is responsible for all World creation.  
-	/// It is a static class because it is only used once at the beginning of the program to construct the world.
-	/// </summary>
-	public static class WorldBuilder
-	{
+    /// <summary>
+    /// World builder is responsible for all World creation.  
+    /// It is a static class because it is only used once at the beginning of the program to construct the world.
+    /// </summary>
+    public static class WorldBuilder
+    {
         /// <summary>
         /// Builds the world. This is the method where you design your world.  Create Areas, Populate those Areas, and then link those areas together.
         /// If an area is particularly complicated, you may consider writing a helper method to break that part out.
@@ -71,11 +71,13 @@ namespace TheWorld
             Area acrossTheRiver = new Area()
             {
                 Name = "Forest",
-                Description = "This is the other side of the river! It's muddy here..."
+                Description = "This is the other side of the river! It is a forest clearing. It's muddy here..."
             };
 
             stream.AddNeighbor(acrossTheRiver, "rocks");
             acrossTheRiver.AddNeighbor(stream, "rocks");
+
+
 
             acrossTheRiver.AddItem(new Item()
             {
@@ -94,22 +96,48 @@ namespace TheWorld
             acrossTheRiver.AddCreature(CreateWorm("Phil"), "phil");
             acrossTheRiver.AddCreature(CreateWorm("Janice"), "janice");
 
+            Area beach = new TheWorld.Area()
+            {
+                Name = "Beach",
+                Description = "A sandy beach. Small fry dart around in the water.",
+            };
+
+            start.AddNeighbor(beach, "east");
+            beach.AddNeighbor(start, "west");
+
+            beach.AddCreature(new Creature()
+            {
+                Name = "Giant Crab",
+                Description = "It's a giant crab. Those claws look nasty!",
+                Stats = new StatChart() { HPs = 25, MaxHPs = 25, Atk = 10, Def = 10, Level = 5 }
+            }, "giant-crab");
+
+
 
 
             // Go back to the Main method and tell it where to start the game!
             return start;
         }
-            private static Creature CreateWorm(String name)
-            {
+        private static Creature CreateWorm(String name)
+        {
             return new Creature()
             {
                 Name = name,
                 Description = "It's a worm!",
                 Stats = new StatChart() { HPs = 2, MaxHPs = 2, Atk = 0, Def = 0, Level = 0 }
             };
-            }
-        
-		
-	}
+        }
+        private static Creature CreateGiantCrab(String name)
+        {
+            return new Creature()
+            {
+                Name = name,
+                Description = "It's a giant crab. Those claws look nasty!",
+                Stats = new StatChart() { HPs = 25, MaxHPs = 25, Atk = 10, Def = 10, Level = 5 }
+            };
+
+
+        }
+    }
 }
 
