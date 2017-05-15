@@ -87,7 +87,7 @@ namespace TheWorld
 				{
 					Console.WriteLine (currentArea.LookAt (parts [1]));
 				}
-				catch(ArgumentException e)
+				catch(WorldException e)
 				{
 					Console.WriteLine (e.Message);
 				}
@@ -108,7 +108,7 @@ namespace TheWorld
 				{
 					currentArea = currentArea.GetNeighbor(parts[1]);
 				}
-				catch(ArgumentException e)
+				catch(WorldException e)
 				{
 					Console.WriteLine (e.Message);
 				}
