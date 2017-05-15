@@ -63,9 +63,62 @@ namespace TheWorld
 			start.AddNeighbor (stream, "north");
 			stream.AddNeighbor (start, "south");
 
+            Area acrossTheRiver = new Area()
+            {
+                Name = "Forest",
+                Description = "This is the othersude if the river! It's muddy here..."
+            };
+            // Connect the stream and accrossTheRiver by the rocks.
+            stream.AddNeighbor(acrossTheRiver, "Rocks");
+            acrossTheRiver.AddNeighbor(stream, "Rocks");
+
+            acrossTheRiver.AddItem(new Item()
+                {
+                Name = "Sparking Rock",
+                Description = "It's a reakky fancy rock., look ar it sparkel",
+                Value = new Money() { Gold = 3}
+            }, "Sparkling-rock");
+
+            acrossTheRiver.AddCreature(new Creature()
+            {
+                Name = "Trogdor The Burninator",
+                Description = "Look ar those beefy arms.",
+                Stats = new StatChart() { HPs = 100, MaxHPs = 100, Level = 10, Atk = 100, Def = 100 }
+            }, "dragon");
+            acrossTheRiver.AddCreature(CreateWorm("Phil"), "phli");
+            acrossTheRiver.AddCreature(CreateWorm("Janice"), "jan");
+            acrossTheRiver.AddItem(CreateItem("Hammer"), "ham");
 			// Go back to the Main method and tell it where to start the game!
 			return start;
 		}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private static Creature CreateWorm(String name)
+        {
+            return new Creature()
+            {
+                Name = name,
+                Description = "It's a worm!",
+                Stats = new StatChart() { HPs = 2, Atk = 0, Def = 0, Level = 0, MaxHPs = 2 }
+            };
+        }
+        private static Item CreateItem(String name)
+        {
+            return new Item()
+            {
+                Name = "hammer",
+                Description = "its a hammer",
+                Value = new Money()
+
+            };
+    
+         }
+
+    }
 	}
+
 }
 
