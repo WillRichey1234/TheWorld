@@ -68,11 +68,6 @@ namespace TheWorld
             start.AddNeighbor(stream, "north");
             stream.AddNeighbor(start, "south");
 
-            Area topOfTheMountain = new Area()
-            {
-                Name = "top of the mountain",
-                Description = "this is the top of the mountain"
-            };
             Area acrossTheRiver = new Area()
             {
                 Name = "Forest",
