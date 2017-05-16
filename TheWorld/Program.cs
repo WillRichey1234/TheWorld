@@ -64,13 +64,17 @@ namespace TheWorld
 				return;
 			}
 
-			if (cmdWord.Equals ("look"))
+			if (cmdWord.Equals("look"))
 			{
-				ProcessLookCommand (parts);
-			} 
-			else if (cmdWord.Equals ("go"))
+				ProcessLookCommand(parts);
+			}
+			else if (cmdWord.Equals("go"))
 			{
-				ProcessGoCommand (parts);
+				ProcessGoCommand(parts);
+			}
+			else if (cmdWord.Equals("examine"))
+			{
+				ProcessExamineCommand(parts);
 			}
 		}
 
@@ -115,7 +119,25 @@ namespace TheWorld
 				}
 			}
 		}
+		private static void ProcessExamineCommand(String[] parts)
+		{
+			if (parts.Length == 1)
+			{
+				throw new WorldException("Examine what?");
+			}
+			string subject = parts[1];
+			try
+			{
+				Creature creature = currentArea.GetCreature(subject);
+				Console.WriteLine(creature);
+			}
+			catch (WorldException e)
+			{
+				Console.WriteLine(e.Message);
+			}
 
+
+		}
 
 	}
 }
