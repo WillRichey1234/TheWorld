@@ -75,7 +75,6 @@ namespace TheWorld
             start.AddNeighbor(stream, "north");
             stream.AddNeighbor(start, "south");
 
-<<<<<<< HEAD
             Area brogland = new Area()
             {
                 Name = "dark ominous land",
