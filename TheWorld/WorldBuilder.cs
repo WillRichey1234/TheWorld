@@ -2,7 +2,6 @@
 
 namespace TheWorld
 {
-
     /// <summary>
     /// World builder is responsible for all World creation.  
     /// It is a static class because it is only used once at the beginning of the program to construct the world.
@@ -40,6 +39,7 @@ namespace TheWorld
                 Description = "A cute bunny.  Looks pretty tasty actually...",
                 Stats = new StatChart() { Level = 1, MaxHPs = 10, HPs = 10, Atk = 2, Def = 0 }
             }, "bunny");
+
             start.AddCreature(new Creature()
             {
                 Name = "brog",
@@ -54,8 +54,6 @@ namespace TheWorld
                 Description = "A burbling stream.  There are some rocks that look like you could cross them to get to the other side."
             };
 
-
-
             // I will populate it with items and creatures in the same way...
             stream.AddItem(new Item()
             {
@@ -67,7 +65,7 @@ namespace TheWorld
             stream.AddCreature(new Creature()
             {
                 Name = "Frog",
-                Description = "A frog on a log! Frog log!",
+                Description = "A crazy big frog!  It looks like it could eat a bird if it caught one.  It also doesn't look happy.",
                 Stats = new StatChart() { MaxHPs = 10, HPs = 10, Atk = 2, Def = 1, Level = 1 }
             }, "frog");
 
@@ -77,6 +75,7 @@ namespace TheWorld
             start.AddNeighbor(stream, "north");
             stream.AddNeighbor(start, "south");
 
+<<<<<<< HEAD
             Area brogland = new Area()
             {
                 Name = "dark ominous land",
@@ -97,6 +96,54 @@ namespace TheWorld
                 Description = "A slop of brog butter. Slimp it down your throat to make for a sloppery evening"
             }, "brogbutter");
 
+           
+            Area acrossTheRiver = new Area()
+            {
+                Name = "Forest",
+                Description = "This is the other side of the river! It is a forest clearing. It's muddy here..."
+            };
+
+            stream.AddNeighbor(acrossTheRiver, "rocks");
+            acrossTheRiver.AddNeighbor(stream, "rocks");
+
+
+
+            acrossTheRiver.AddItem(new Item()
+            {
+                Name = "Sparkling Rock",
+                Description = "It's a really fancy rock. Look at it sparkle!",
+                Value = new Money() { Gold = 3 }
+            }, "sparkling-rock");
+
+            acrossTheRiver.AddCreature(new Creature()
+            {
+                Name = "Trogdor the Burninator",
+                Description = "Look at those beefy arms!",
+                Stats = new StatChart() { HPs = 100, MaxHPs = 100, Level = 10, Atk = 100, Def = 100 }
+            }, "dragon");
+
+            acrossTheRiver.AddCreature(CreateWorm("Phil"), "phil");
+            acrossTheRiver.AddCreature(CreateWorm("Janice"), "janice");
+
+            Area beach = new TheWorld.Area()
+            {
+                Name = "Beach",
+                Description = "A sandy beach. Small fry dart around in the water.",
+            };
+
+            start.AddNeighbor(beach, "east");
+            beach.AddNeighbor(start, "west");
+
+            beach.AddCreature(new Creature()
+            {
+                Name = "Giant Crab",
+                Description = "It's a giant crab. Those claws look nasty!",
+                Stats = new StatChart() { HPs = 25, MaxHPs = 25, Atk = 10, Def = 10, Level = 5 }
+            }, "giant-crab");
+
+
+
+
             return start;
         }
 
@@ -114,8 +161,10 @@ namespace TheWorld
                 Name = name,
                 Description = "It's a wild Jason Cox!",
                 Stats = new StatChart() { HPs = 90, Atk = 5, Def = -5, Level = 10, MaxHPs = 95 }
+                
             };
         }
+
         private static Creature CreateWorm(String name)
         {
             return new Creature()
@@ -133,9 +182,18 @@ namespace TheWorld
                 Name = "hammer",
                 Description = "its a hammer",
                 Value = new Money()
-
             };
+         }
 
+        private static Creature CreateGiantCrab(String name)
+        {
+            return new Creature()
+            {
+                Name = name,
+                Description = "It's a giant crab. Those claws look nasty!",
+                Stats = new StatChart() { HPs = 25, MaxHPs = 25, Atk = 10, Def = 10, Level = 5 }
+            };
+            
         }
     }
 }

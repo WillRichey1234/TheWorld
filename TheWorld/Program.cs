@@ -26,7 +26,7 @@ namespace TheWorld
 				Level=1,
 				MaxHPs = Dice.Roll(Dice.Type.D10, 1),
 				HPs = 10,
-				Atk = 2,
+				Atk = 2,     //add speed. if higher than enemy's, you go first?
 				Def = 1
 			};
 
@@ -101,15 +101,44 @@ namespace TheWorld
 			{
 				ProcessLookCommand(parts);
 			}
-			else if (cmdWord.Equals("go"))
-			{
-				ProcessGoCommand(parts);
-			}
 			else if (cmdWord.Equals("examine"))
 			{
-				ProcessExamineCommand(parts);
-			}
+                ProcessExamineCommand(parts);
+				ProcessGoCommand (parts);
+                Console.WriteLine("{0}", currentArea);
+            }
+            else if (cmdWord.Equals ("help"))
+            {
+                ProcessHelp(parts);
+            }
 		}
+
+
+        protected static void ProcessHelp(String[]parts)
+        {
+            if (parts.Length == 1)
+            {
+                //generic help--list of commands
+                Console.WriteLine("Available commands: look, look at, go, examine, attack, quit");
+            }
+            else if (parts[1].Equals("look"))
+            {
+                Console.WriteLine("'look' is used to look at an area.");
+            }
+            else if (parts[1].Equals("look at"))
+            {
+                Console.WriteLine("'look at' is used to look at a specific object in greater detail.");
+            }
+            else if (parts[1].Equals("go"))
+            {
+                Console.WriteLine("'go' is used to travel to a different area.");
+            }
+            else if (parts[1].Equals("quit"))
+            {
+                Console.WriteLine("'quit' is used to exit the program. Please don't. Like, ever. We put a lot of work into this.");
+            }
+        }
+
 
 		/// <summary>
 		/// What happens when the user types "look" as the command word.
@@ -173,9 +202,6 @@ namespace TheWorld
 			{
 				Console.WriteLine(e.Message);
 			}
-
-
 		}
-
 	}
 }
