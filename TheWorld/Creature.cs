@@ -34,9 +34,8 @@ namespace TheWorld
 			get;
 			set;
 		}
+        
 
-
-
-	}
+    }
 }
 

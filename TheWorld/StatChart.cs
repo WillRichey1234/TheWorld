@@ -64,6 +64,15 @@ namespace TheWorld
 
 			return this.Atk - opponent.Def;
 		}
-	}
+
+        /// <summary>
+        /// Print a nice human readable stat chart!
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return String.Format()
+        }
+    }
 }
 

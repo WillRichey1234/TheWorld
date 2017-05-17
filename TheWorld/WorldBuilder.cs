@@ -19,7 +19,7 @@ namespace TheWorld
         {
             // This is going to be the area where the player starts.
             Area start = new Area() { Name = "The Field", Description = "A wide grassy field with not much to see." };
-
+            
             // I can create a new Item and add it directly into the Area without having a separate variable for it!  Convenient!
             start.AddItem(new Item()
             {
@@ -91,32 +91,7 @@ namespace TheWorld
                 Description = "Look at those beefy arms.",
                 Stats = new StatChart() { HPs = 100, MaxHPs = 100, Level = 10, Atk = 100, Def = 100 }
             }, "dragon");
-
-            acrossTheRiver.AddCreature(CreateWorm("Phil"), "phil");
-            acrossTheRiver.AddCreature(CreateWorm("Janice"), "jan");
-
-            Area acrossTheRiver = new Area()
-            {
-                Name = "Forest",
-                Description = "This is the othersude if the river! It's muddy here..."
-            };
-            // Connect the stream and accrossTheRiver by the rocks.
-            stream.AddNeighbor(acrossTheRiver, "Rocks");
-            acrossTheRiver.AddNeighbor(stream, "Rocks");
-
-            acrossTheRiver.AddItem(new Item()
-            {
-                Name = "Sparking Rock",
-                Description = "It's a reakky fancy rock., look ar it sparkel",
-                Value = new Money() { Gold = 3 }
-            }, "Sparkling-rock");
-
-            acrossTheRiver.AddCreature(new Creature()
-            {
-                Name = "Trogdor The Burninator",
-                Description = "Look ar those beefy arms.",
-                Stats = new StatChart() { HPs = 100, MaxHPs = 100, Level = 10, Atk = 100, Def = 100 }
-            }, "dragon");
+            
             acrossTheRiver.AddCreature(CreateWorm("Phil"), "phli");
             acrossTheRiver.AddCreature(CreateWorm("Janice"), "jan");
             acrossTheRiver.AddItem(CreateItem("Hammer"), "ham");

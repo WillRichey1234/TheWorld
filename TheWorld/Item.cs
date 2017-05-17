@@ -36,5 +36,18 @@ namespace TheWorld
 			set;
 		}
 	}
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class UsableItem : Item
+    {
+        public String UseText { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString() + " [Useable]";
+        }
+    }
 }
 
