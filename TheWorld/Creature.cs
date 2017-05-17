@@ -34,8 +34,12 @@ namespace TheWorld
 			get;
 			set;
 		}
-        
+		public override string ToString()
+		{
+			return string.Format("Creature: Name={0} \n {1} \n Stats={2}", Name, Description, Stats);
+		}
 
-    }
+
+	}
 }
 

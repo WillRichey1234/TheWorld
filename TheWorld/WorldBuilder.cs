@@ -2,6 +2,7 @@
 
 namespace TheWorld
 {
+
     /// <summary>
     /// World builder is responsible for all World creation.  
     /// It is a static class because it is only used once at the beginning of the program to construct the world.
@@ -19,7 +20,7 @@ namespace TheWorld
         {
             // This is going to be the area where the player starts.
             Area start = new Area() { Name = "The Field", Description = "A wide grassy field with not much to see." };
-            
+
             // I can create a new Item and add it directly into the Area without having a separate variable for it!  Convenient!
             start.AddItem(new Item()
             {
@@ -39,6 +40,12 @@ namespace TheWorld
                 Description = "A cute bunny.  Looks pretty tasty actually...",
                 Stats = new StatChart() { Level = 1, MaxHPs = 10, HPs = 10, Atk = 2, Def = 0 }
             }, "bunny");
+            start.AddCreature(new Creature()
+            {
+                Name = "brog",
+                Description = "The deadly brog.  Its slippery slimeys scare the children. Beware the brog",
+                Stats = new StatChart() { Level = 1, MaxHPs = 10, HPs = 10, Atk = 2, Def = 0 }
+            }, "brog");
 
             // Here's a second area.
             Area stream = new Area()
@@ -46,6 +53,8 @@ namespace TheWorld
                 Name = "Stream",
                 Description = "A burbling stream.  There are some rocks that look like you could cross them to get to the other side."
             };
+
+
 
             // I will populate it with items and creatures in the same way...
             stream.AddItem(new Item()
@@ -58,55 +67,38 @@ namespace TheWorld
             stream.AddCreature(new Creature()
             {
                 Name = "Frog",
-                Description = "A crazy big frog!  It looks like it could eat a bird if it caught one.  It also doesn't look happy.",
+                Description = "A frog on a log! Frog log!",
                 Stats = new StatChart() { MaxHPs = 10, HPs = 10, Atk = 2, Def = 1, Level = 1 }
             }, "frog");
 
-            // These two lines LINK the two areas together.  
-            // Don't forget to go both ways or you'll end up with a dead end
+
+            // These two lines LINK the two areas together.  Don't forget to go both ways or you'll end up with a dead end
             // and no way out!!!
             start.AddNeighbor(stream, "north");
             stream.AddNeighbor(start, "south");
 
-            Area acrossTheRiver = new Area()
+            Area brogland = new Area()
             {
-                Name = "Forest",
-                Description = "This is the otherside of the river! It's muddy here..."
+                Name = "dark ominous land",
+                Description = "A dark and desolate land over the horizon. The brogs rule this land. Beware The Land of the Brogs."
             };
-            Area acrossTheSouth = new TheWorld.Area()
+            start.AddNeighbor(brogland, "south");
+            brogland.AddNeighbor(start, "north");
+            start.AddItem(new Item()
             {
-                Name = "Dublin",
-                Description = "Ewww you want to leave here"
-            };
-            // connect the stream and acrossTheRiver by the rocks.
-            stream.AddNeighbor(acrossTheRiver, "rocks");
-            acrossTheRiver.AddNeighbor(stream, "rocks");
+                Name = "Brog Oil",
+                Description = "A valuable bottle of brog oil, harvested from a brog with great dificulty," +
+                " use it wisely"
+            }, "brogoil");
 
-            acrossTheRiver.AddItem(new Item()
+            start.AddItem(new Item()
             {
-                Name = "Sparkling Rock",
-                Description = "It's a really fancy rock.  Look at it sparkle!",
-                Value = new Money() { Gold = 3 }
-            }, "sparkling-rock");
+                Name = "Brog Butter",
+                Description = "A slop of brog butter. Slimp it down your throat to make for a sloppery evening"
+            }, "brogbutter");
 
-            acrossTheRiver.AddCreature(new Creature()
-            {
-                Name = "Trogdor The Burninator",
-                Description = "Look at those beefy arms.",
-                Stats = new StatChart() { HPs = 100, MaxHPs = 100, Level = 10, Atk = 100, Def = 100 }
-            }, "dragon");
-            
-            acrossTheRiver.AddCreature(CreateWorm("Phil"), "phli");
-            acrossTheRiver.AddCreature(CreateWorm("Janice"), "jan");
-            acrossTheRiver.AddItem(CreateItem("Hammer"), "ham");
-            acrossTheRiver.AddCreature(CreateCox("Jason"), "cox");
-            // Go back to the Main method and tell it where to start the game!
             return start;
         }
-
-        /// <summary>
-        /// 
-
 
         /// <summary>
         /// Create a generic Worm creature.
