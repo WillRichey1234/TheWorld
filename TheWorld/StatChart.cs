@@ -66,7 +66,7 @@ namespace TheWorld
 		}
 		public override string ToString()
 		{
-			return string.Format("HPs={0}/{1}, Level={2}, Atk={3}, Def={4}", HPs, MaxHPs, Level, Atk, Def);
+			return string.Format(" HPs={0}/{1}, Level={2}, Atk={3}, Def={4}", HPs, MaxHPs, Level, Atk, Def);
 		}
 	}
 }
