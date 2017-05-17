@@ -69,41 +69,41 @@ namespace TheWorld
 				Description = "A frog on a log! Frog log!",
 				Stats = new StatChart() { MaxHPs = 10, HPs = 10, Atk = 2, Def = 1, Level = 1 }
 			}, "frog");
-           
-            // These two lines LINK the two areas together.  
-            // Don't forget to go both ways or you'll end up with a dead end
-            // and no way out!!!
-            start.AddNeighbor (stream, "north");
-			stream.AddNeighbor (start, "south");
 
-            Area acrossTheRiver = new Area()
-            {
-                Name = "Forest",
-                Description = "This is the otherside of the river! It's muddy here..."
-            };
+			// These two lines LINK the two areas together.  
+			// Don't forget to go both ways or you'll end up with a dead end
+			// and no way out!!!
+			start.AddNeighbor(stream, "north");
+			stream.AddNeighbor(start, "south");
 
-<<<<<<< HEAD
-            // connect the stream and acrossTheRiver by the rocks.
-            stream.AddNeighbor(acrossTheRiver, "rocks");
-            acrossTheRiver.AddNeighbor(stream, "rocks");
+			Area acrossTheRiver = new Area()
+			{
+				Name = "Forest",
+				Description = "This is the otherside of the river! It's muddy here..."
+			};
 
-            acrossTheRiver.AddItem(new Item()
-            {
-                Name = "Sparkling Rock",
-                Description = "It's a really fancy rock.  Look at it sparkle!",
-                Value = new Money() { Gold = 3 }
-            }, "sparkling-rock");
 
-            acrossTheRiver.AddCreature(new Creature()
-            {
-                Name = "Trogdor The Burninator",
-                Description = "Look at those beefy arms.",
-                Stats = new StatChart() { HPs = 100, MaxHPs = 100, Level = 10, Atk = 100, Def = 100 }
-            }, "dragon");
+			// connect the stream and acrossTheRiver by the rocks.
+			stream.AddNeighbor(acrossTheRiver, "rocks");
+			acrossTheRiver.AddNeighbor(stream, "rocks");
 
-            acrossTheRiver.AddCreature(CreateWorm("Phil"), "phil");
-            acrossTheRiver.AddCreature(CreateWorm("Janice"), "jan");
-=======
+			acrossTheRiver.AddItem(new Item()
+			{
+				Name = "Sparkling Rock",
+				Description = "It's a really fancy rock.  Look at it sparkle!",
+				Value = new Money() { Gold = 3 }
+			}, "sparkling-rock");
+
+			acrossTheRiver.AddCreature(new Creature()
+			{
+				Name = "Trogdor The Burninator",
+				Description = "Look at those beefy arms.",
+				Stats = new StatChart() { HPs = 100, MaxHPs = 100, Level = 10, Atk = 100, Def = 100 }
+			}, "dragon");
+
+			acrossTheRiver.AddCreature(CreateWorm("Phil"), "phil");
+			acrossTheRiver.AddCreature(CreateWorm("Janice"), "jan");
+
 			// These two lines LINK the two areas together.  Don't forget to go both ways or you'll end up with a dead end
 			// and no way out!!!
 			start.AddNeighbor(stream, "north");
@@ -117,31 +117,41 @@ namespace TheWorld
 			start.AddNeighbor(brogland, "east");
 			brogland.AddNeighbor(start, "west");
 
->>>>>>> master
+
+
+			start.AddItem(CreateCactus(), "cactus");
 
 			// Go back to the Main method and tell it where to start the game!
 			return start;
 		}
 
-<<<<<<< HEAD
-        /// <summary>
-        /// Create a generic Worm creature.
-        /// Change stuff...
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        private static Creature CreateWorm(String name)
-        {
-            return new Creature()
-            {
-                Name = name,
-                Description = "It's a worm!",
-                Stats = new StatChart() { HPs = 2, Atk = 0, Def = 0, Level = 0, MaxHPs = 2 }
-            };
-        }
-=======
 
->>>>>>> master
+		/// <summary>
+		/// Create a generic Worm creature.
+		/// Change stuff...
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		private static Creature CreateWorm(String name)
+		{
+			return new Creature()
+			{
+				Name = name,
+				Description = "It's a worm!",
+				Stats = new StatChart() { HPs = 2, Atk = 0, Def = 0, Level = 0, MaxHPs = 2 }
+			};
+		}
+
+
+
+
+
+
+		private static Item CreateCactus()
+		{
+			return new Item() { Name = "Cactus", Description = "So thorny.", Value = new Money() };
+		}
+	
 	}
 }
 
