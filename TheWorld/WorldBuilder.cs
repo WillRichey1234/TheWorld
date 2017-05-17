@@ -73,7 +73,11 @@ namespace TheWorld
                 Name = "Forest",
                 Description = "This is the otherside of the river! It's muddy here..."
             };
-
+            Area acrossTheSouth = new TheWorld.Area()
+            {
+                Name = "Dublin",
+                Description = "Ewww you want to leave here"
+            };
             // connect the stream and acrossTheRiver by the rocks.
             stream.AddNeighbor(acrossTheRiver, "rocks");
             acrossTheRiver.AddNeighbor(stream, "rocks");

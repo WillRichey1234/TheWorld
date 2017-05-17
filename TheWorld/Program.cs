@@ -51,6 +51,34 @@ namespace TheWorld
 			Console.ReadKey ();
 		}
 
+        /// <summary>
+        /// Parses the command and do any required actions.
+        /// </summary>
+        /// <param name="parts"></param>
+        private static void ParseAttackCommand(string[] parts)
+        {
+            //There is ONLY the worl attack
+            if(parts.Length == 1)
+            {
+                throw new WorldException("Attack What???");
+            }
+
+            //the target is the second word typed.
+            string target = parts[1];
+            try
+            {
+                Creature creature = currentArea.GetCreature(target);
+                Console.WriteLine(creature.Stats);
+                    //Have the PLAYER attack this creature.
+            }
+            catch (WorldException e)
+            { 
+                //the creature isn't there...
+                Console.WriteLine(e.Message);
+            }
+
+        }
+
 		/// <summary>
 		/// Parses the command and do any required actions.
 		/// </summary>

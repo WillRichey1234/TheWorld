@@ -57,6 +57,12 @@ namespace TheWorld
 			else
 				Backpack.Add (item.Name, new List<Item> () { item });
 		}
+
+        public void Attack(ref Creature target)
+        {
+            target.Stats.HPs -= this.Stats.CalculateAttack(target.Stats);
+
+        }
 	}
 }
 
