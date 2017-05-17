@@ -90,6 +90,8 @@ namespace TheWorld
             acrossTheRiver.AddCreature(CreateWorm("Phil"), "phil");
             acrossTheRiver.AddCreature(CreateWorm("Janice"), "jan");
 
+            start.AddItem(CreateCactus(), "cactus");
+
 			// Go back to the Main method and tell it where to start the game!
 			return start;
 		}
@@ -108,6 +110,11 @@ namespace TheWorld
                 Description = "It's a worm!",
                 Stats = new StatChart() { HPs = 2, Atk = 0, Def = 0, Level = 0, MaxHPs = 2 }
             };
+        }
+
+        private static Item CreateCactus()
+        {
+            return new Item() { Name = "Cactus", Description = "So thorny.", Value = new Money() };
         }
 	}
 }
