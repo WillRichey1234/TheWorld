@@ -14,7 +14,7 @@ namespace TheWorld
 		/// You will need to add more words to make the game more interesting!
 		/// </summary>
 		private static List<String> CommandWords = new List<string> () {
-			"go", "look", "help", "quit", "examine"
+			"go", "look", "help", "quit", "examine", "attack"
 		};
 
 		public static void Main( string[] args )
@@ -36,12 +36,14 @@ namespace TheWorld
 
 			Console.WriteLine (currentArea);
 
+            // This is called the Game Loop - it runs until you type 'quit'
 			while (!command.ToLower ().Equals ("quit"))
 			{
 				// Do the Game Loop!
 				Console.Write (">> ");
 				command = Console.ReadLine ();
 
+                // everything is converted to lowercase letters.
 				ParseCommand (command.ToLower ());
 			}
 
@@ -55,8 +57,10 @@ namespace TheWorld
 		/// <param name="command">Command as typed by the user.</param>
 		private static void ParseCommand( String command )
 		{
+            // break the command string apart at spaces.
 			String[] parts = command.Split (' ');
-			String cmdWord = parts [0];
+            // the first word is the "command word".
+            String cmdWord = parts [0];
 
 			if (!CommandWords.Contains (cmdWord))
 			{
@@ -64,6 +68,7 @@ namespace TheWorld
 				return;
 			}
 
+            // These are the command word processors.  
 			if (cmdWord.Equals ("look"))
 			{
 				ProcessLookCommand (parts);
@@ -80,12 +85,14 @@ namespace TheWorld
 		/// <param name="parts">Command Parts.</param>
 		private static void ProcessLookCommand(String[] parts)
 		{
+            // if I just type "look" -> look around, the current area.
 			if (parts.Length == 1)
 				Console.WriteLine (currentArea.LookAround ());
 			else
 			{
 				try
 				{
+                    // try to look AT the second word you type.
 					Console.WriteLine (currentArea.LookAt (parts [1]));
 				}
 				catch(WorldException e)
@@ -94,6 +101,9 @@ namespace TheWorld
 				}
 			}
 		}
+
+
+
 
 		/// <summary>
 		/// Processes the go command.
